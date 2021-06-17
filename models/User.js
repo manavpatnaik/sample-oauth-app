@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
     },
   },
   googleUser: {
-    idd: {
+    id: {
       type: String,
     },
     email: {
@@ -32,6 +32,14 @@ UserSchema.pre('save', async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.local.password = await bcrypt.hash(this.local.password, salt);
 });
+
+UserSchema.methods.validatePassword = async function (password) {
+  try {
+    return await bcrypt.compare(this.password, password);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const User = mongoose.model('User', UserSchema);
 
