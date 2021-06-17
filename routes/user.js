@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const User = require('../models/User');
 const authenticateUser = require('../middleware/authenticateUser');
 
@@ -41,6 +42,15 @@ router.post('/login', async (req, res) => {
   const token = signToken(user);
   res.status(200).send({ token });
 });
+
+router.post(
+  '/login/google',
+  passport.authenticate('googleToken', { session: false }),
+  (req, res) => {
+    const token = signToken(req.user);
+    res.status(200).send({ token });
+  }
+);
 
 router.get('/secretResource', authenticateUser, async (req, res) => {
   const user = await User.findById(req.user.id);

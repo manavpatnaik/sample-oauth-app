@@ -4,6 +4,9 @@ const connectDB = require('./config/db');
 
 dotenv.config();
 
+require('passport');
+require('./passport');
+
 connectDB();
 
 const app = express();
