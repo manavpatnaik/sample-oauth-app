@@ -6,6 +6,7 @@
     "func-names": "off",
     "no-process-exit": "off",
     "prefer-destructuring": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "comma-dangle": "off"
   }
 }
