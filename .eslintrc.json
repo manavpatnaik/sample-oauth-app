@@ -5,6 +5,7 @@
     "no-console": "off",
     "func-names": "off",
     "no-process-exit": "off",
-    "prefer-destructuring": "off"
+    "prefer-destructuring": "off",
+    "consistent-return": "off"
   }
 }
