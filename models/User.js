@@ -30,14 +30,15 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre('save', async function (next) {
   if (this.method !== 'local') next();
   const salt = await bcrypt.genSalt(10);
-  this.local.password = await bcrypt.hash(this.local.password, salt);
+  this.localUser.password = await bcrypt.hash(this.localUser.password, salt);
 });
 
 UserSchema.methods.validatePassword = async function (password) {
   try {
-    return await bcrypt.compare(this.password, password);
+    const valid = await bcrypt.compare(password, this.localUser.password);
+    return valid;
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
